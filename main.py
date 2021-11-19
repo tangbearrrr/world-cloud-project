@@ -1,4 +1,3 @@
-from typing import Optional
 from fastapi import FastAPI
 from tweepy_service import search
 
