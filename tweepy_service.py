@@ -54,7 +54,8 @@ def search(keyword):
 
     return {
         "status": "000",
-        "message": "success"
+        "message": "success",
+        "image": settings.image_dir
     }
 
 def cleaning_tweets(t):

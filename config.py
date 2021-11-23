@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     consumer_secret: str = ""
     access_token: str = ""
     access_token_secret: str = ""
-    items_limit: int = 10
+    items_limit: int = 100
+    image_dir: str = "/Users/rahatsarawasee/Desktop/covid.png"
 
 settings = Settings()
