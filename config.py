@@ -6,6 +6,6 @@ class Settings(BaseSettings):
     access_token: str = ""
     access_token_secret: str = ""
     items_limit: int = 100
-    image_dir: str = "/Users/rahatsarawasee/Desktop/covid.png"
+    system_dir: str = "/Users/pattaweechitnapovn/Desktop/"
 
 settings = Settings()

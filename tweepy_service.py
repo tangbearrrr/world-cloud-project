@@ -32,8 +32,8 @@ def search(keyword):
     tweets = tweepy.Cursor(api.search_tweets, q=keyword + "-filter:retweets", lang='en').items(settings.items_limit)
     tweets_list = [[tweet.text] for tweet in tweets]
     df = pd.DataFrame(tweets_list,columns=['Text'])
-    df.to_csv('/Users/rahatsarawasee/Desktop/test.csv', index = False, header=True)
-    df = pd.read_csv("/Users/rahatsarawasee/Desktop/test.csv")
+    df.to_csv(settings.system_dir+'/test.csv', index = False, header=True)
+    df = pd.read_csv(settings.system_dir+"test.csv")
 
     print("Cleaning the tweets...\n")
     cleaned_tweets = []
@@ -50,12 +50,12 @@ def search(keyword):
     plt.figure(figsize=(40,30))
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis("off")
-    plt.savefig('/Users/rahatsarawasee/Desktop/covid.png')
+    plt.savefig(settings.system_dir+'covid.png')
 
     return {
         "status": "000",
         "message": "success",
-        "image": settings.image_dir
+        "image": settings.system_dir+'covid.png'
     }
 
 def cleaning_tweets(t):
