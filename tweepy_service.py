@@ -28,7 +28,7 @@ stopwords = set(STOPWORDS)
 def search(keyword):
 
     # get tweet from twiiter api
-    tweets = tweepy.Cursor(api.search_tweets, q=keyword + "-filter:retweets", lang='en').items(settings.items_limit)
+    tweets = tweepy.Cursor(api.search_tweets, q=keyword + "-filter:retweets").items(settings.items_limit)
     tweets_list = [[tweet.text] for tweet in tweets]
     df = pd.DataFrame(tweets_list,columns=['Text'])
     df.to_csv(settings.system_dir+'/test.csv', index = False, header=True)
@@ -41,16 +41,16 @@ def search(keyword):
     
     string = pd.Series(cleaned_tweets).str.cat(sep=' ')
 
-    wordcloud = WordCloud(width=1600, stopwords=stopwords,height=800,max_font_size=200,max_words=50,collocations=False, background_color='grey').generate(string)
+    wordcloud = WordCloud(mode = "RGBA", background_color=None, width=1600, stopwords=stopwords,height=800,max_font_size=200,max_words=50,collocations=False).generate(string)
     plt.figure(figsize=(40,30))
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis("off")
-    plt.savefig(settings.system_dir+'covid.png')
+    plt.savefig(settings.system_dir+ keyword + '.png')
 
     return {
         "status": "000",
         "message": "success",
-        "image": settings.system_dir + keyword + uuid.uuid4 + '.png'
+        "image": settings.system_dir + keyword  + '.png'
     }
 
 def cleaning_tweets(t):
