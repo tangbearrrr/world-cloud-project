@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from nltk.tokenize import WordPunctTokenizer
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
+import uuid
 from config import settings
 
 
@@ -23,8 +24,6 @@ regex_pattern = re.compile(pattern = "["
                            "]+", flags = re.UNICODE)
 
 stopwords = set(STOPWORDS)
-stopwords.update(["elonmusk","elon musk","elon","musk","spacex"])
-
 
 def search(keyword):
 
@@ -35,14 +34,10 @@ def search(keyword):
     df.to_csv(settings.system_dir+'/test.csv', index = False, header=True)
     df = pd.read_csv(settings.system_dir+"test.csv")
 
-    print("Cleaning the tweets...\n")
     cleaned_tweets = []
-    print("Cleaning the tweets...\n")
     for i in range(0,100):
-        if( (i+1)%10 == 0 ):
-            print("Tweets {} of {} have been processed".format(i+1,10))                                                                  
-        print("Cleaning the tweets...\n")
-        cleaned_tweets.append(cleaning_tweets((df.Text[i])))
+        if( (i+1)%10 == 0 ): 
+            cleaned_tweets.append(cleaning_tweets((df.Text[i])))
     
     string = pd.Series(cleaned_tweets).str.cat(sep=' ')
 
@@ -55,7 +50,7 @@ def search(keyword):
     return {
         "status": "000",
         "message": "success",
-        "image": settings.system_dir+'covid.png'
+        "image": settings.system_dir + keyword + uuid.uuid4 + '.png'
     }
 
 def cleaning_tweets(t):

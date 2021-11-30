@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+tweepy
+pandas
+beautifulsoup4
+lxml
+nltk
+wordcloud
