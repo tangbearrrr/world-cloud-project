@@ -6,6 +6,6 @@ class Settings(BaseSettings):
     access_token: str = ""
     access_token_secret: str = ""
     items_limit: int = 100
-    system_dir: str = "/Users/pattaweechitnapovn/Desktop/"
+    system_dir: str = "front-end/public/"
 
 settings = Settings()

@@ -1,16 +1,33 @@
 import Head from 'next/head'
+import { useState } from 'react'
 
-const SearchBar = () => {
-  return (
-    <form>
-      <label for="search">Search</label>
-      <input id="search" type="search" pattern=".*\S.*" required />
-      <span class="caret"></span>
-    </form>
-  )
-}
 
 export default function Home() {
+  const [showImage, setShowImage] = useState(false);
+  const [imgUrl, setImgUrl] = useState();
+
+  const SearchBar = () => {
+  
+    return (
+      <div>
+        <input type="text" onKeyDown={onEnter} />
+      </div>
+    )
+  }
+
+  const onEnter = async event => {
+
+    if (event.key == 'Enter') {
+      const res = await fetch(
+        `http://localhost:8000/api/v1/world-clouds?keyword=${event.target.value}`
+      )
+  
+      const result = await res.json()
+      setImgUrl(result.image)
+      setShowImage(true)
+    }
+  }
+
   return (
     <div className="container">
       <Head>
@@ -26,6 +43,10 @@ export default function Home() {
         <p className="description">
           Get started here <SearchBar />
         </p>
+
+        { showImage &&
+          <img src={imgUrl} />
+        }
       </main>
     </div>
   )
